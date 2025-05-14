@@ -174,9 +174,10 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "startup_app.event.get_events"
-# }
+override_whitelisted_methods = {
+	# "frappe.desk.doctype.event.event.get_events": "startup_app.event.get_events"
+    "erpnext.stock.get_item_details.get_item_details":"startup_app.startup_app.custom_price_rule.custom_get_item_details",
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -242,3 +243,13 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+
+
+fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [
+            ["module", "=", "Startup App"]
+        ]
+    }
+]
