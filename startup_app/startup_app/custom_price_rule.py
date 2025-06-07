@@ -10,7 +10,7 @@ from frappe.utils import cint, flt,add_days
 
 @frappe.whitelist()
 def custom_get_item_details(args, doc=None, for_validate=False, overwrite_warehouse=True):
-    print("my custom method is called =================================== ")
+    
 
     """
     args = {
@@ -167,7 +167,7 @@ def custom_apply_price_discount_rule(pricing_rule, item_details, args):
 
                
                 discount_sum = args.price_list_rate - value
-                print("discount_sum--------",discount_sum)
+                
                 dp_price = discount_sum
                 temp_value = value
 
@@ -199,10 +199,10 @@ def custom_apply_price_discount_rule(pricing_rule, item_details, args):
                 custom_c_discount = discount_sum * (float(discount_components[3][1]) / 100)
                
                 discount_sum -= custom_c_discount
-                print("after discount sum--------",discount_sum)
+                
                 net_price = discount_sum
                 value = temp_value + trade_mark_discount + custom_a_discount + custom_b_discount + custom_c_discount 
-                print("value-----",value)
+                
                 gst_price = args.price_list_rate - value 
                 
                 final_gst_price = gst_price - (gst_price / (1 + (pricing_rule.custom_gst_rate / 100)))
