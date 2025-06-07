@@ -167,6 +167,8 @@ def custom_apply_price_discount_rule(pricing_rule, item_details, args):
 
                
                 discount_sum = args.price_list_rate - value
+                print("discount_sum--------",discount_sum)
+                dp_price = discount_sum
                 temp_value = value
 
                 # Step 2: Apply custom discounts from fields in fixed order
@@ -197,14 +199,20 @@ def custom_apply_price_discount_rule(pricing_rule, item_details, args):
                 custom_c_discount = discount_sum * (float(discount_components[3][1]) / 100)
                
                 discount_sum -= custom_c_discount
-
+                print("after discount sum--------",discount_sum)
+                net_price = discount_sum
                 value = temp_value + trade_mark_discount + custom_a_discount + custom_b_discount + custom_c_discount 
-
+                print("value-----",value)
                 gst_price = args.price_list_rate - value 
                 
                 final_gst_price = gst_price - (gst_price / (1 + (pricing_rule.custom_gst_rate / 100)))
                 
                 value = value + final_gst_price
+
+                formula = ((dp_price - net_price)*100 ) / dp_price
+                item_details["custom_formula"]=formula
+                frappe.db.commit()
+                
                 calculate_discount_percentage = True
 
            
