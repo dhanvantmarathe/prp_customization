@@ -210,7 +210,7 @@ def custom_apply_price_discount_rule(pricing_rule, item_details, args):
                 value = value + final_gst_price
 
                 formula = ((dp_price - net_price)*100 ) / dp_price
-                item_details["custom_formula"]=formula
+                item_details["custom_formula"]=round(formula,2)
                 frappe.db.commit()
                 
                 calculate_discount_percentage = True
